@@ -15,6 +15,10 @@ components:
           name: debug
           protocol: tcp
           targetPort: 5005
+        - exposure: public
+          name: hello-greeting
+          protocol: http
+          targetPort: 8080
       volumeMounts:
         - name: m2
           path: /home/user/.m2
