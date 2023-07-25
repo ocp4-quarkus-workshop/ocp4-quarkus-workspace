@@ -10,8 +10,8 @@
       "vscjava.vscode-java-test",
       "vscjava.vscode-maven",
       "redhat.vscode-knative",
-      "redhat.vscode-openshift-extension-pack",
+      "redhat.vscode-openshift-connector",
       "redhat.vscode-openshift-java-pack",
-
+      "redhat.vscode-openshift-extension-pack",
     ]
   }

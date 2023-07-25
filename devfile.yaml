@@ -8,6 +8,8 @@ components:
       env:
         - name: QUARKUS_HTTP_HOST
           value: 0.0.0.0
+        - name: GRAALVM_HOME
+          value: ~/.sdkman/candidates/java/22.1.0.0.r17-mandrel/
       endpoints:
         - exposure: none
           name: debug
@@ -68,3 +70,5 @@ commands:
       commandLine: "./getting-started-1.0.0-SNAPSHOT-runner"
       group:
         kind: run
+
+
