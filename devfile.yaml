@@ -16,9 +16,25 @@ components:
           protocol: tcp
           targetPort: 5005
         - exposure: public
-          name: hello-greeting
+          name: ui
           protocol: http
           targetPort: 8080
+        - exposure: public
+          name: fight
+          protocol: http
+          targetPort: 8082
+        - exposure: public
+          name: hero
+          protocol: http
+          targetPort: 8083
+        - exposure: public
+          name: villain
+          protocol: http
+          targetPort: 8084
+        - exposure: public
+          name: statistics
+          protocol: http
+          targetPort: 8085                                     
       volumeMounts:
         - name: m2
           path: /home/user/.m2
@@ -38,41 +54,85 @@ components:
       size: 1G
 
 commands:
-  - id: package
+
+  - id: package-villains
     exec:
       component: tools
-      workingDir: ${PROJECT_SOURCE}/getting-started
+      label: "Package Villains"
+      workingDir: ${PROJECT_SOURCE}/quarkus-super-heroes/super-heroes/rest-villains
       commandLine: "mvn package -Dmaven.test.skip"
       group:
         kind: build
-        isDefault: true
+        isDefault: false
 
-  - id: package-native
+  - id: run-villains-dev
     exec:
-      label: "Package Native"
       component: tools
-      workingDir: ${PROJECT_SOURCE}/getting-started
-      commandLine: "mvn package -Dnative -Dmaven.test.skip -Dquarkus.native.native-image-xmx=2G"
+      label: "Run Villains"
+      workingDir: ${PROJECT_SOURCE}/quarkus-super-heroes/super-heroes/rest-villains
+      commandLine: "mvn quarkus:dev"
+      group:
+        kind: run
+        isDefault: false
+
+  - id: package-villains-native
+    exec:
+      component: tools
+      label: "Package Villains Native"
+      workingDir: ${PROJECT_SOURCE}/quarkus-super-heroes/super-heroes/rest-villains
+      commandLine: "mvn package -Dnative -Dmaven.test.skip"
       group:
         kind: build
+        isDefault: false
 
-  - id: start-dev
+  - id: run-villains-native
     exec:
-      label: "Start Development mode (Hot reload + debug)"
       component: tools
-      workingDir: ${PROJECT_SOURCE}/getting-started
-      commandLine: "mvn compile quarkus:dev"
+      label: "Run Villains Native"
+      workingDir: ${PROJECT_SOURCE}/quarkus-super-heroes/super-heroes/rest-villains
+      commandLine: "./target/rest-villains-1.0.0-SNAPSHOT-runner"
       group:
         kind: run
-        isDefault: true
+        isDefault: false
 
-  - id: start-native
+  - id: package-heroes
     exec:
-      label: "Start Native"
-      component: ubi-minimal
-      workingDir: ${PROJECT_SOURCE}/getting-started/target
-      commandLine: "./getting-started-1.0.0-SNAPSHOT-runner"
+      component: tools
+      label: "Package Heroes"
+      workingDir: ${PROJECT_SOURCE}/quarkus-super-heroes/super-heroes/rest-heroes
+      commandLine: "mvn package -Dmaven.test.skip"
+      group:
+        kind: build
+        isDefault: false
+
+  - id: run-heroes-dev
+    exec:
+      component: tools
+      label: "Run Heroes"
+      workingDir: ${PROJECT_SOURCE}/quarkus-super-heroes/super-heroes/rest-heroes
+      commandLine: "mvn quarkus:dev"
       group:
         kind: run
+        isDefault: false
+
+  - id: package-heroes-native
+    exec:
+      component: tools
+      label: "Package Heroes Native"
+      workingDir: ${PROJECT_SOURCE}/quarkus-super-heroes/super-heroes/rest-heroes
+      commandLine: "mvn package -Dnative -Dmaven.test.skip"
+      group:
+        kind: build
+        isDefault: false
+
+  - id: run-heroes-native
+    exec:
+      component: tools
+      label: "Run Heroes Native"
+      workingDir: ${PROJECT_SOURCE}/quarkus-super-heroes/super-heroes/rest-heroes
+      commandLine: "./target/rest-heroes-1.0.0-SNAPSHOT-runner"
+      group:
+        kind: run
+        isDefault: false
 
 
