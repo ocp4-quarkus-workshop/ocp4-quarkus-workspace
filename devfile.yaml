@@ -8,8 +8,6 @@ components:
       env:
         - name: QUARKUS_HTTP_HOST
           value: 0.0.0.0
-        - name: GRAALVM_HOME
-          value: ~/.sdkman/candidates/java/22.1.0.0.r17-mandrel/
       endpoints:
         - exposure: none
           name: debug
@@ -135,4 +133,15 @@ commands:
         kind: run
         isDefault: false
 
+  - id: init-project
+    exec:
+      component: tools
+      label: "Init Project"
+      workingDir: ${PROJECT_SOURCE}
+      commandLine: "chmod a+x init-project.sh && ./init-project.sh"
+      group:
+        kind: run
 
+events:
+  postStart:
+    - init-project

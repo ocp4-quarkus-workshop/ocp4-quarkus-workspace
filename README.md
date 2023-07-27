@@ -1,15 +1,6 @@
 # Quarkus Workshop - Workspace
 
 
-Install JDK 17
-
-```bash
-sdk default java 17.0.3-tem
-sdk install java 22.3.2.1.r17-mandrel
-echo "GRAALVM_HOME=~/.sdkman/candidates/java/22.3.2.1.r17-mandrel" >> ~/.bashrc
-echo "sdk default java 17.0.3-tem"  >> ~/.bashrc
-source ~/.bashrc
-```
 Before going further, make sure the following commands work on your machine.
 
 ```bash
