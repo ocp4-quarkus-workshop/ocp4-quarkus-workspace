@@ -5,7 +5,8 @@ Install JDK 17
 
 ```bash
 sdk default java 17.0.3-tem
-echo "GRAALVM_HOME=~/.sdkman/candidates/java/22.1.0.0.r17-mandrel" >> ~/.bashrc
+sdk install java 22.3.2.1.r17-mandrel
+echo "GRAALVM_HOME=~/.sdkman/candidates/java/22.3.2.1.r17-mandrel" >> ~/.bashrc
 echo "sdk default java 17.0.3-tem"  >> ~/.bashrc
 source ~/.bashrc
 ```
