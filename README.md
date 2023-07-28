@@ -1,5 +1,26 @@
 # Quarkus Workshop - Workspace
 
+- bit.ly/qsh-wks-2023
+
+## Quarkus Super-Heroes Workshop
+
+- https://quarkus.io/quarkus-workshops/super-heroes/
+- https://github.com/quarkusio/quarkus-workshops/
+- https://github.com/quarkusio/quarkus-super-heroes
+
+
+- https://github.com/ocp4-quarkus-workshop/ocp4-quarkus-workspace
+
+
+- https://www.youtube.com/watch?v=KzIKGEsXQxg
+- https://www.youtube.com/watch?v=7M0Tvlx-GTA
+- https://www.youtube.com/watch?v=gyOe-m-kltw
+- https://www.youtube.com/watch?v=421h2h9OUFY
+- https://github.com/vaibhavjain4/quarkus-super-heroes
+- https://drive.google.com/file/d/14J6EUZpDsUzpdJEBoQSsPszFkFnif_mW/view
+
+
+## Preparing
 
 Before going further, make sure the following commands work on your machine.
 
@@ -90,3 +111,42 @@ oc delete all,cm,secret -l app=heroesdb
 oc delete all,cm,secret -l app=fightsdb
 oc delete all,cm,secret -l app=fights-kafka
 ```
+
+## Containers
+
+Building containers
+- https://quarkus.io/guides/container-image
+
+```bash
+mvn quarkus:add-extension -Dextensions='container-image-jib'
+mvn quarkus:add-extension -Dextensions='container-image-docker'
+# -Dquarkus.container-image.builder=jib
+# -Dquarkus.container-image.builder=docker
+mvn package -DskipTests -Dquarkus.container-image.build=true
+# -Dquarkus.container-image.push=true
+mvnw clean package -DskipTests -Dquarkus.container-image.build=true -Pnative -Dquarkus.native.container-build=true
+```
+
+Kubernetes/Openshift
+- https://quarkus.io/guides/deploying-to-kubernetes
+- https://quarkus.io/guides/deploying-to-openshift
+- https://quarkus.io/guides/kubernetes-config
+
+```bash
+mvn quarkus:add-extension -Dextensions='kubernetes'
+mvn quarkus:add-extension -Dextensions='openshift'
+mvn install -DskipTests -Dquarkus.container-image.build=true
+mvn install -Dquarkus.kubernetes.deploy=true
+# -Dquarkus.kubernetes.deployment-target=knative # kubernetes, openshift, knative, minikube
+```
+
+
+## Resources
+
+- https://quarkus.io/guides/cdi-reference
+- https://quarkus.io/guides/cdi
+- https://quarkus.io/guides/config-reference
+- https://quarkus.io/guides/hibernate-orm-panache
+- https://quarkus.io/guides/hibernate-reactive-panache
+- https://quarkus.io/guides/resteasy-reactive
+- https://quarkus.io/guides/rest-client-reactive
