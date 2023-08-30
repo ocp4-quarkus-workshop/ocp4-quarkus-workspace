@@ -34,9 +34,11 @@ curl --version
 ```
 
 ```bash
-wget https://raw.githubusercontent.com/quarkusio/quarkus-workshops/refs/heads/main/quarkus-workshop-super-heroes/dist/quarkus-super-heroes-workshop.zip
-unzip quarkus-super-heroes-workshop.zip
-#wget https://raw.githubusercontent.com/quarkusio/quarkus-workshops/refs/heads/main/quarkus-workshop-super-heroes/dist/quarkus-super-heroes-workshop-complete.zip
+# wget https://raw.githubusercontent.com/quarkusio/quarkus-workshops/refs/heads/main/quarkus-workshop-super-heroes/dist/quarkus-super-heroes-workshop-complete.zip
+# unzip quarkus-super-heroes-workshop-complete.zip
+# zip -q -r quarkus-super-heroes-workshop-wks23-complete.zip quarkus-super-heroes/
+
+unzip quarkus-super-heroes-workshop-wks23.zip
 ```
 
 ## Backend systems in Developer Sandbox
