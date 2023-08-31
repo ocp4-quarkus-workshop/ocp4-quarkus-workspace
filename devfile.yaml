@@ -36,7 +36,9 @@ components:
       volumeMounts:
         - name: m2
           path: /home/user/.m2
-      memoryLimit: 6.7G
+      memoryLimit: 6G
+      cpuLimit: 4000m
+      cpuRequest: 450m
       mountSources: true
 
   - name: ubi-minimal
