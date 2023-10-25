@@ -134,11 +134,19 @@ Kubernetes/Openshift
 - https://quarkus.io/guides/deploying-to-openshift
 - https://quarkus.io/guides/kubernetes-config
 
+```conf
+quarkus.openshift.resources.limits.memory=250Mi
+quarkus.openshift.resources.limits.cpu=500m
+quarkus.openshift.resources.requests.cpu=10m
+quarkus.openshift.resources.requests.memory=64Mi
+quarkus.openshift.route.expose=true
+```
+
 ```bash
 mvn quarkus:add-extension -Dextensions='kubernetes'
 mvn quarkus:add-extension -Dextensions='openshift'
-mvn install -DskipTests -Dquarkus.container-image.build=true
-mvn install -Dquarkus.kubernetes.deploy=true
+mvn clean package -DskipTests -Dquarkus.container-image.build=true
+mvn clean package -DskipTests -Dquarkus.kubernetes.deploy=true
 # -Dquarkus.kubernetes.deployment-target=knative # kubernetes, openshift, knative, minikube
 ```
 
