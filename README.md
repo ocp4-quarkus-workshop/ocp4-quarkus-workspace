@@ -55,10 +55,17 @@ oc new-app --name villainsdb -e POSTGRESQL_USER=superbad -e POSTGRESQL_PASSWORD=
 Configure db source for Villains service
 
 ```conf
+# dev profile
 %dev.quarkus.datasource.username=superbad
 %dev.quarkus.datasource.password=superbad
 %dev.quarkus.datasource.jdbc.url=jdbc:postgresql://villainsdb:5432/villains_database
 %dev.quarkus.hibernate-orm.sql-load-script=import.sql
+
+# prod profile
+%prod.quarkus.datasource.username=superbad
+%prod.quarkus.datasource.password=superbad
+%prod.quarkus.datasource.jdbc.url=jdbc:postgresql://villainsdb:5432/villains_database
+%prod.quarkus.hibernate-orm.sql-load-script=import.sql
 ```
 
 Install Heroes DB
@@ -71,10 +78,17 @@ oc new-app --name heroesdb -e POSTGRESQL_USER=superman -e POSTGRESQL_PASSWORD=su
 Configure db source for Heroes service
 
 ```conf
+# dev profile
 %dev.quarkus.datasource.username=superman
 %dev.quarkus.datasource.password=superman
 %dev.quarkus.datasource.reactive.url=postgresql://heroesdb:5432/heroes_database
 %dev.quarkus.hibernate-orm.sql-load-script=import.sql
+
+# prod profile
+%prod.quarkus.datasource.username=superman
+%prod.quarkus.datasource.password=superman
+%prod.quarkus.datasource.reactive.url=postgresql://heroesdb:5432/heroes_database
+%prod.quarkus.hibernate-orm.sql-load-script=import.sql
 ```
 
 Install Fights DB
@@ -87,10 +101,17 @@ oc new-app --name fightsdb -e POSTGRESQL_USER=superfight -e POSTGRESQL_PASSWORD=
 Configure db source for Fights service
 
 ```conf
+# dev profile
 %dev.quarkus.datasource.jdbc.url=jdbc:postgresql://fightsdb:5432/fights_database
 %dev.quarkus.datasource.username=superfight
 %dev.quarkus.datasource.password=superfight
 %dev.quarkus.hibernate-orm.sql-load-script=import.sql
+
+# prod profile
+%prod.quarkus.datasource.jdbc.url=jdbc:postgresql://fightsdb:5432/fights_database
+%prod.quarkus.datasource.username=superfight
+%prod.quarkus.datasource.password=superfight
+%prod.quarkus.hibernate-orm.sql-load-script=import.sql
 ```
 
 Install Kafka
@@ -134,6 +155,8 @@ Kubernetes/Openshift
 - https://quarkus.io/guides/deploying-to-openshift
 - https://quarkus.io/guides/kubernetes-config
 
+Add this configuration in each `application.properties` file.
+
 ```conf
 quarkus.openshift.resources.limits.memory=250Mi
 quarkus.openshift.resources.limits.cpu=500m
@@ -141,10 +164,30 @@ quarkus.openshift.resources.requests.cpu=10m
 quarkus.openshift.resources.requests.memory=64Mi
 quarkus.openshift.route.expose=true
 ```
+Add this in `rest-fights` configuration
+
+```conf
+%prod.io.quarkus.workshop.superheroes.fight.client.HeroProxy/mp-rest/url=http://rest-heroes
+%prod.io.quarkus.workshop.superheroes.fight.client.VillainProxy/mp-rest/url=http://rest-villains
+%prod.quarkus.http.cors.origins=/.*/
+```
+
+Add this in `ui-super-heroes` configuration
+
+```conf
+%prod.api.base.url=<url of res-fights service>
+```
+
+Get the url of the `rest-fights` service using
 
 ```bash
-mvn quarkus:add-extension -Dextensions='kubernetes'
+oc get route rest-fights -o jsonpath={.spec.host}
+```
+
+```bash
+# mvn quarkus:add-extension -Dextensions='kubernetes'
 mvn quarkus:add-extension -Dextensions='openshift'
+mvn quarkus:remove-extension -Dextensions='container-image-docker'
 mvn clean package -DskipTests -Dquarkus.container-image.build=true
 mvn clean package -DskipTests -Dquarkus.kubernetes.deploy=true
 # -Dquarkus.kubernetes.deployment-target=knative # kubernetes, openshift, knative, minikube
